@@ -133,13 +133,10 @@ export default (o, c, d) => {
   d.tz = function (input, arg1, arg2) {
     const parseFormat = arg2 && arg1
     const timezone = arg2 || arg1 || defaultTimezone
-    const previousOffset = tzOffset(+d(input, parseFormat), timezone)
-    // To differentiate date only string (e.g. yy-mm-dd) from date string with negative
-    // 2-digit offset (hour offset zz, e.g. yy-mm-zz) we require at least 8 characters
-    // before offset (i.e. yy-mm-dd-zz)
-    if ((typeof input !== 'string') || /.{8,}[+-]\d\d:?(\d\d)?$|Z$/i.test(input)) {
-      // timestamp number || js Date || Day.js || input string with offset (e.g. -03:00)
-      return d(input, parseFormat).tz(timezone)
+    const previousOffset = tzOffset(+d(), timezone)
+    if (typeof input !== 'string') {
+      // timestamp number || js Date || Day.js
+      return d(input).tz(timezone)
     }
     const localTs = d.utc(input, parseFormat).valueOf()
     const [targetTs, targetOffset] = fixOffset(localTs, previousOffset, timezone)
