@@ -1,6 +1,6 @@
 {
   "name": "@onepilothq/dayjs",
-  "version": "1.11.13-onepilot",
+  "version": "1.11.14-onepilot",
   "description": "2KB immutable date time library alternative to Moment.js with the same modern API ",
   "main": "dayjs.min.js",
   "types": "index.d.ts",
